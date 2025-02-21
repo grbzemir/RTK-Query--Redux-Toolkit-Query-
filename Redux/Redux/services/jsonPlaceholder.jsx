@@ -24,4 +24,4 @@ export const jsonPlaceholderApi = createApi({
 })
 
 
-export const { useGetPostByIdQuery } = jsonPlaceholderApi
+export const { useGetPostByIdQuery, useCreatePostMutation } = jsonPlaceholderApi
