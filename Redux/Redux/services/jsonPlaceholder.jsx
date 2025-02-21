@@ -8,7 +8,7 @@ export const jsonPlaceholderApi = createApi({
     endpoints: (builder) => ({
         getPostById: builder.query({
             /*builder query ile veri çekme işlemleri yapılır*/
-            /*muation var ise post işlemi yapabilirsin*/
+            /*mutation var ise post işlemi yapabilirsin*/
             query: (id) => `posts/${id}`,
         }),
         createPost: builder.mutation({
@@ -19,9 +19,16 @@ export const jsonPlaceholderApi = createApi({
                     body: newPost
                 }
             )
+        }),
+        getPosts: builder.query({
+            query: (page = 1) => `posts?_pages$(page)&_limit=10`
         })
     }),
+    /*Kullanılmayan verileri saklama işlemi yapar*/
+    keepUnusedDataFor: 30,
+    /*Saniyede bir yeniden sorgulama işlemi 5 saniyede bir sorgulama yapar*/
+    refetchOnMountOrArgChange: 5
 })
 
 
-export const { useGetPostByIdQuery, useCreatePostMutation } = jsonPlaceholderApi
+export const { useGetPostByIdQuery, useCreatePostMutation, useGetPostsQuery } = jsonPlaceholderApi
