@@ -16,7 +16,6 @@ export const fetchPokemonByName = createAsyncThunk(
     },
 )
 
-
 export const counterSlice = createSlice({
     name: 'counter',
     initialState,
@@ -26,31 +25,25 @@ export const counterSlice = createSlice({
             state.value -= 1
         },
         incrementByAmount: (state, action) => {
-            /*Payload: Eylemle birlikte gönderilen veridir*/
             state.value += action.payload
         },
     },
 
     /*Küçük veri yönetimleri yapmak için */
-
-    extraReducers: { builder } => {
-    {
+    extraReducers: (builder) => {
         builder.addCase(fetchPokemonByName.pending, (state, action) => {
-            state.statusByName[action.meta.arg] = 'pending'
+            state.statusByName = 'pending'
         })
 
         builder.addCase(fetchPokemonByName.fulfilled, (state, action) => {
             console.log(state, action);
         })
 
-        builder.addCase(fetchPokemonByName.rejected, (state, action) {
+        builder.addCase(fetchPokemonByName.rejected, (state, action) => { // Hatalı süslü parantez düzeltildi
             console.log(state, action);
         })
+    },
+})
 
-    })
-
-
-
-
-    export const { decrement, incrementByAmount } = counterSlice.actions
-    export default counterSlice.reducer
+export const { decrement, incrementByAmount } = counterSlice.actions
+export default counterSlice.reducer
