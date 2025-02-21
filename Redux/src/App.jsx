@@ -16,6 +16,17 @@ function App() {
 
     e.preventDefault();
     const title = e.target.title.value;
+    const body = e.target.body.value;
+    const newPost = { title, body };
+
+    try {
+      /* unwrap durumu gösteren bir yapıdır hata olduğunda hata durumunu gösterir olumlu olduğunda olumlu olma durumunu gösterir*/
+      await createPost(newPost).unwrap();
+      console.log("Ekleme işlemi başarılı");
+    }
+    catch (error) {
+      console.log("Ekleme işlemi başarısız");
+    }
   }
   return (
     <div>
