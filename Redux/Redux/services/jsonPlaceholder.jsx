@@ -8,10 +8,20 @@ export const jsonPlaceholderApi = createApi({
     endpoints: (builder) => ({
         getPostById: builder.query({
             /*builder query ile veri çekme işlemleri yapılır*/
+            /*muation var ise post işlemi yapabilirsin*/
             query: (id) => `posts/${id}`,
         }),
+        createPost: builder.mutation({
+            query: (newPost) => (
+                {
+                    url: `posts`,
+                    method: 'POST',
+                    body: newPost
+                }
+            )
+        })
     }),
 })
 
 
-export const { useGetPostById } = jsonPlaceholderApi
+export const { useGetPostByIdQuery } = jsonPlaceholderApi
