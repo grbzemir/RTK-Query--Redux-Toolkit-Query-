@@ -1,7 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-
-// Define a service using a base URL and expected endpoints
 export const jsonPlaceholderApi = createApi({
     reducerPath: 'jsonPlaceholder',
     baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.org' }),
@@ -10,6 +8,8 @@ export const jsonPlaceholderApi = createApi({
             /*builder query ile veri çekme işlemleri yapılır*/
             /*mutation var ise post işlemi yapabilirsin*/
             query: (id) => `posts/${id}`,
+            /* önbellek yapısı ile ilgilenen ön bellekte sakla verileri ama post her değiştiğinde o verileri siler */
+            providesTags: (result, error, id) => [{ type: "Post", id: id }]
         }),
         createPost: builder.mutation({
             query: (newPost) => (
@@ -28,6 +28,21 @@ export const jsonPlaceholderApi = createApi({
     keepUnusedDataFor: 30,
     /*Saniyede bir yeniden sorgulama işlemi 5 saniyede bir sorgulama yapar*/
     refetchOnMountOrArgChange: 5
+})
+
+
+/* Yeni bir endpoint olusturdum injectEndpoints ile */
+jsonPlaceholderApi.injectEndpoints({
+    endpoints: (builder) =>
+    ({
+        getUserById: builder.query({
+            query: (userId) => `users/${userId}`
+        }),
+        getPostById: builder.query({
+            query: (id) => `posts/test/${id}`,
+            providesTags: (result, error, id) => [{ type: "Post", id: id }]
+        })
+    })
 })
 
 

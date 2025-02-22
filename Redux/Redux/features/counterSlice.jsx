@@ -39,7 +39,7 @@ export const counterSlice = createSlice({
             console.log(state, action);
         })
 
-        builder.addCase(fetchPokemonByName.rejected, (state, action) => { // Hatalı süslü parantez düzeltildi
+        builder.addCase(fetchPokemonByName.rejected, (state, action) => {
             console.log(state, action);
         })
     },
